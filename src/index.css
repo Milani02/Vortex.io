@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #030305;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* Efeito de Vórtice no Fundo */
+.vortex-bg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 200vw;
+  height: 200vw;
+  background: radial-gradient(circle, rgba(109,40,217,0.1) 0%, rgba(3,3,5,0) 70%);
+  transform: translate(-50%, -50%);
+  animation: spin 30s linear infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+  50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.2); }
+  100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+}

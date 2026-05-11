@@ -7,6 +7,7 @@ import { OrbitControls, Stars, Detailed, Float } from '@react-three/drei';
 import nexusImg from './assets/image_field.png';
 import biotecaImg from './assets/image_bioteca.png';
 import n8nImg from './assets/image_cielon8n.png';
+import logoVortex from './assets/logo_vortex-.png'; // Importação da nova logo
 
 // --- 1. Componentes do Cenário 3D ---
 
@@ -198,7 +199,7 @@ export default function App() {
 
     try {
       // SUBSTITUA PELA SUA URL DO N8N AQUI
-      await fetch('SUA_URL_DO_WEBHOOK_AQUI', {
+      await fetch('https://n8n.biodinamica.com.br/webhook/vortex-leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -216,21 +217,22 @@ export default function App() {
       <SurrealScene />
       <CursorTrail />
 
-      {/* HEADER FIXO */}
+      {/* HEADER FIXO - Ajustado o padding (py-2 px-6) para não esticar a barra com a logo maior */}
       <div className="fixed top-0 left-0 w-full z-[80] flex flex-col">
         {currentView === 'home' && (
           <div className="w-full bg-gradient-to-r from-purple-900 to-black text-center py-2 text-xs md:text-sm font-medium tracking-widest border-b border-purple-500/30">
             <span className="text-purple-300">⚡ ATENÇÃO:</span> APENAS 2 VAGAS NA AGENDA PARA ESTE MÊS.
           </div>
         )}
-        <header className="p-6 w-full backdrop-blur-md bg-black/20 border-b border-white/5 shadow-lg shadow-purple-900/10">
+        <header className="py-2 px-6 w-full backdrop-blur-md bg-black/20 border-b border-white/5 shadow-lg shadow-purple-900/10">
           <div className="flex justify-between items-center max-w-7xl mx-auto">
-            <h1 onClick={() => handleNavigation('home')} className="text-2xl font-black text-white hover:text-purple-400 transition-colors" style={{ cursor: 'none' }}>
-              VORTEX <span className="text-purple-500">i.o</span>
-            </h1>
+            {/* Logo com altura aumentada e scale para ganhar destaque sem quebrar o layout */}
+            <div onClick={() => handleNavigation('home')} className="cursor-none hover:opacity-80 transition-opacity">
+              <img src={logoVortex} alt="VORTEX.io Logo" className="h-16 md:h-20 w-auto scale-110 origin-left object-contain" />
+            </div>
             {currentView === 'home' && (
               <button onClick={scrollToContact} className="px-6 py-2 rounded-full bg-white text-black font-bold text-sm hover:bg-purple-400 hover:text-white transition-all transform hover:scale-105" style={{ cursor: 'none' }}>
-                {submitted ? "Falar no WhatsApp" : "Agendar Diagnóstico"}
+                {submitted ? "Falar no WhatsApp" : "Fazer orçamento"}
               </button>
             )}
           </div>
@@ -374,12 +376,13 @@ export default function App() {
         )}
       </main>
 
-      {/* RODAPÉ */}
-      <footer className="w-full bg-black/80 backdrop-blur-lg border-t border-white/5 pt-16 pb-8 relative z-10">
+      {/* RODAPÉ - Ajustado padding superior (pt-8) e adicionada escala para aumentar a logo sem alargar a faixa */}
+      <footer className="w-full bg-black/80 backdrop-blur-lg border-t border-white/5 pt-8 pb-8 relative z-10">
         <div className="max-w-7xl mx-auto px-4 text-left">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div>
-              <h1 className="text-2xl font-black text-white mb-4">VORTEX <span className="text-purple-500">i.o</span></h1>
+              {/* Logo com altura maior e scale ajustado */}
+              <img src={logoVortex} alt="VORTEX.io Logo" className="h-16 md:h-20 w-auto mb-4 scale-110 origin-left object-contain" />
               <p className="text-gray-500 text-sm">Código puro e arquitetura blindada.</p>
             </div>
             <div>
@@ -393,7 +396,7 @@ export default function App() {
               <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-widest">Contato</h4>
               <ul className="flex flex-col gap-3 text-sm text-gray-500">
                 <li>contato@vortex.io</li>
-                <li>Londrina / Ibiporã - PR</li>
+                <li>Londrina - PR</li>
               </ul>
             </div>
             <div>
@@ -405,7 +408,7 @@ export default function App() {
             </div>
           </div>
           <div className="text-xs text-gray-600 font-mono flex justify-between border-t border-white/5 pt-8">
-            <p>© 2026 VORTEX i.o.</p>
+            <p>© 2026 VORTEX.io</p>
             <p>Sistemas Online ● Londrina - PR</p>
           </div>
         </div>
